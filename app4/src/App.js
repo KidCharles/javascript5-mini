@@ -6,7 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cars: []
+      cars: ['hey']
     }
   }
 
@@ -14,16 +14,24 @@ class App extends Component {
     axios.get('https://joes-autos.herokuapp.com/api/vehicles')
     .then(res => {
       this.setState({
-        cars: res
+        cars: res.data
       })
     })
   }
 
   render() {
+    let mappedCars = this.state.cars.map(car => {
+      return(
+        <div>
+          <p>{car.make}</p>
+        </div> 
+      )
+    })
     return (
       <div className="App">
-        <button onClick={this.getCars}>Get cars</button>
-        {this.state.cars}
+        <button onClick={()=>this.getCars()}>Get cars</button>
+        <br/>
+       {mappedCars}
       </div>
     );
   }
